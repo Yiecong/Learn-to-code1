@@ -1,0 +1,51 @@
+a{
+    font-size: x-large;
+    color: rgb(0, 113, 333)
+}
+a:hover{
+    color:rgb(69, 38, 73);
+}
+a:active{
+    color:rgb(241, 10, 241);
+}
+h1{
+    font-style: normal;
+}
+h2{
+    color: rgb(0, 118, 0);
+}
+p{
+    font-weight: 480;
+    font-size: large;
+}
+.keranjang{
+    background-color: rgb(255, 216, 20);
+    border: none;
+    height: 30px;
+    width: 114px;
+    border-radius: 15px;
+    cursor:pointer;
+    transition: opacity 0.15s;
+}
+.keranjang:hover{
+    opacity: 0.8;
+}
+.keranjang:active{
+    opacity: 0.5;
+}
+.beli{
+    background-color: rgb(255, 164, 28);
+    border: none;
+    height: 30px;
+    width: 114px;
+    border-radius: 15px;
+    margin-left: 6px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+}
+.beli:hover{
+    opacity: 0.8;
+}
+.beli:active{
+    opacity: 0.5;
+}

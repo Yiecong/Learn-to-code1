@@ -1,0 +1,36 @@
+p{
+    font-family: Arial;
+}
+.account-name{
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+.account-at{
+    font-weight: normal;
+    color: rgb(96,96,96);
+    margin-bottom: 8px;
+}
+.time{
+    font-weight: normal;
+    color: rgb(96,96,96);
+    margin-bottom: 8px;
+}
+.paragraph-1{
+    width: 550px;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+.paragraph-2{
+    margin-top: 0;
+}
+.account-name2{
+    color: rgb(57, 147, 207);
+    margin-top: 0;
+    cursor:pointer;
+}
+.account-name2:hover{
+    text-decoration: underline;
+}
+.account-name2:active{
+    color: rgb(9, 9, 114);
+}

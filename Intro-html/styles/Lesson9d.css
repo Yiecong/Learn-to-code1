@@ -1,0 +1,17 @@
+.youtube-music{
+    background-color: rgb(39, 36, 36);
+    width: 360px;
+    height: 120px;
+    font-family: Roboto;
+}
+.title{
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 20px 10px 0 15px;
+}
+.paragraph{
+    color: rgb(200, 200, 200);
+    font-size: 14px;
+    padding: 0 10px 0 15px;
+}

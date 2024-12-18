@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Lesson 13b</title>
+        <style>
+            .flexbox{
+                display: flex;
+                flex-direction: row;
+                height: 50px;
+            }
+            .column1{
+                background-color: lightpink;
+                width: 100px;
+            }
+            .column2{
+                background-color: lightblue;
+                width: 200px;
+            }
+            .row1{
+                margin-bottom: 0;
+            }
+            .row2-group{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                
+            }
+            p{
+                color: white;
+                background-color: black;
+                margin-top: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="flexbox">
+            <div class="column1"></div>
+
+            <div class="column2">
+                <div class="row1">row1</div>
+                <div class="row2-group">
+                    <div><p>row2</p></div>
+                    <div><p>row2</p></div>
+                </div>
+                
+            </div>
+        </div>
+    </body>
+</html>
