@@ -1,0 +1,337 @@
+#include <bits/stdc++.h>
+#include <cstdlib>
+using namespace std;
+struct menu{
+    string namaMenu;
+    int harga;
+};
+struct pesanan{
+    string namaMenu;
+    int jumlah;
+    int harga;
+    string namaPemesan;
+};
+struct daftarBooking{
+    string nama;
+    int jumlahOrang;
+    int nomorMeja;
+};
+vector<daftarBooking>riwayatBooking;
+vector<pesanan>daftarPesanan;
+
+bool statusMeja[20] = {false};
+
+void tampilkanMenu() {
+    cout << "================ Menu Makanan & Minuman ================" << "\n\n";
+    cout << "1.  Gado-Gado Roll             11.  Es Serai Lemon" << endl;
+    cout << "2.  Perkedel Mini Udang        12.  Teh Rosella Madu" << endl;
+    cout << "3.  Tahu Isi Crispy            13.  Kopi Tubruk Arabica Gayo" << endl;
+    cout << "4.  Lumpia Daging Rendang      14.  Kopi Jos" << endl;
+    cout << "5.  Sup Rawon Iga Sapi         15.  Wedang Jahe" << endl;
+    cout << "6.  Sup Asam Pedas Padang      16.  Infused Water"<< endl;
+    cout << "7.  Ikan Bakar Sambal Matah    17.  Es cendol " << endl;
+    cout << "8.  Nasi Ayam Kebuli           18.  Es Teler" << endl;
+    cout << "9.  Ayam Betutu                19.  Bir Pletok" << endl;
+    cout << "10. Lontong Sayur              20.  Teh O" << endl << endl;
+    cout << "========================================================" << "\n";
+}
+
+void pesanMakanan(const vector<menu>& daftarMenu){
+    system("cls");
+    string namaPemesan;
+    int totalAkhir = 0;
+    int pilihMenu, jumlahMenu;
+    char pilihan2;
+    bool pilihMenuValid = true;
+    tampilkanMenu();
+
+    cout << "Silakan masukkan nama pemesan     : ";
+        cin >> namaPemesan;
+        cout << "\n\n========================================================= " << "\n\n";
+
+    while(pilihMenuValid == true){
+        pilihMenuValid = false;
+        cout << "\nMasukkan nomor menu yang mau dipesan  : ";
+        cin >> pilihMenu;
+
+    if(pilihMenu < 1 || pilihMenu > 20){
+        cout << "Pilihan Tidak Valid!" << "\n\n";
+        pilihMenuValid = true;
+        continue;
+    }
+    cout << "Masukkan jumlah pesanan               : ";
+    cin >> jumlahMenu;
+    
+    daftarPesanan.push_back({daftarMenu[pilihMenu - 1].namaMenu, jumlahMenu, daftarMenu[pilihMenu - 1].harga,namaPemesan});
+
+    cout << "Apakah anda menambah pesanan? (Y/N)   : ";
+    cin >> pilihan2;
+    
+    if(pilihan2 == 'Y' || pilihan2 == 'y'){
+        pilihMenuValid = true;
+        continue;
+    }
+    else{
+        cout << "\n================ Pesanan Anda ================ " << endl ;
+        cout << "Pesanan atas nama : " << namaPemesan << endl << endl;
+
+    for(int i = 0; i < daftarPesanan.size(); i++){
+        int totalAwal = daftarPesanan[i].jumlah * daftarPesanan[i].harga;
+        totalAkhir += totalAwal;
+        cout << left << setw(3) << i+1 << ". "
+             << setw(25) << daftarPesanan[i].namaMenu
+             << setw(3) << daftarPesanan[i].jumlah << " x "
+             << setw(7) << daftarPesanan[i].harga
+             << "= Rp." << totalAwal << endl;
+    }
+
+    cout << "-------------------------------------------------------" << endl;
+    cout << "\nTotal yang harus dibayar : Rp." << totalAkhir << endl << endl;
+    cout << "\nTekan enter untuk kembali ke menu utama...";\
+    cin.ignore();
+    cin.get();
+    }
+    
+}
+   
+}
+
+void bookingMeja(){
+system("cls");
+string namaUser;
+int jumlahOrang = 0, nomorMeja;
+
+cout << "\n================ Booking Meja ===============\n\n";
+
+cout << "============== Status Meja ==============\n\n";
+
+for(int i = 0; i < 20;i++){
+    cout << left << setw(6) << "Meja "<< setw(2) << i+1 << ": " << setw(16) << (statusMeja[i] ? " Sudah dibooking" : "Tersedia") << endl;
+}
+
+bool pilihMejaValid = false;
+
+cout << "\nMasukkan nama Anda     : ";
+cin.ignore();
+getline(cin,namaUser);
+
+cout << "Masukkan jumlah orang   : ";
+cin >> jumlahOrang;
+
+while(!pilihMejaValid){
+    int mejaDibutuhkan = (jumlahOrang + 5)/6;
+
+if(jumlahOrang > 6){
+    while(mejaDibutuhkan > 0){
+     cout << "\n*Catatan : 1 meja maksimal untuk 6 orang!" << endl;
+     cout << "Karena ada " << jumlahOrang << " orang maka butuh " << mejaDibutuhkan << " meja" << endl;
+     cout << "Silakan pilih nomor meja yang ingin anda booking (1-20) : ";
+     cin >> nomorMeja;
+
+        if(nomorMeja < 1 || nomorMeja > 20){
+        cout << "\nNomor Meja Tidak Valid! Silahkan coba lagi.\n" << endl;
+         }
+
+        else if(statusMeja[nomorMeja - 1]){
+        cout << "\nMeja Tersebut sudah dibooking! Silahkan pilih meja lain.\n";
+         }
+
+        else{
+        char yakinortidak;
+    
+        cout << "Apakah sudah yakin? (Y/N)  : ";
+        cin >> yakinortidak;
+
+        if(yakinortidak == 'Y' || yakinortidak == 'y'){
+            statusMeja[nomorMeja - 1] = true;
+            riwayatBooking.push_back({namaUser,jumlahOrang,nomorMeja});
+            cout << "\nBooking berhasil! Meja nomor " << nomorMeja << " atas nama " << namaUser << " untuk " << jumlahOrang << " orang.\n\n";
+            mejaDibutuhkan--;
+            if(jumlahOrang > 6){
+                jumlahOrang -= 6;
+            }
+            pilihMejaValid = true;
+             
+         }
+
+         else{
+             cout << "Coba lagi!\n\n";
+        }
+        }
+}
+}
+else{
+    cout << "\n*Catatan : 1 meja maksimal untuk 6 orang!" << endl;
+    cout << "Silakan pilih nomor meja yang ingin anda booking (1-20) : ";
+    cin >> nomorMeja;
+
+    if(nomorMeja < 1 || nomorMeja > 20){
+        cout << "\nNomor Meja Tidak Valid! Silahkan coba lagi.\n" << endl;
+    }
+
+    else if(statusMeja[nomorMeja - 1]){
+        cout << "\nMeja Tersebut sudah dibooking! Silahkan pilih meja lain.\n";
+    }
+
+    else{
+        char yakinortidak;
+    
+        cout << "Apakah sudah yakin? (Y/N)  : ";
+        cin >> yakinortidak;
+
+        if(yakinortidak == 'Y' || yakinortidak == 'y'){
+            statusMeja[nomorMeja - 1] = true;
+            riwayatBooking.push_back({namaUser,jumlahOrang,nomorMeja});
+            cout << "\nBooking berhasil! Meja nomor " << nomorMeja << " atas nama " << namaUser << " untuk " << jumlahOrang << " orang.\n";
+            
+            pilihMejaValid = true;
+             
+        }
+
+         else{
+             cout << "\nCoba lagi!\n\n";
+        }
+        }
+
+}
+
+}
+cout << "\nTekan enter untuk kembali ke menu utama...";
+cin.ignore();
+cin.get();
+}
+
+void lihatRiwayat(){
+    system("cls");
+    string cariNama;
+    cout << "========== Lihat Pesanan & Booking ==========\n\n\n";
+
+    cout << "Mohon masukkan nama pemesan :";
+    cin.ignore();
+    getline(cin, cariNama);
+
+    cout << "========== Daftar Pesanan ==========\n\n";
+    
+    bool adaPesanan = false;
+    int total = 0;
+    cout << "==== Pesanan atas nama : " << cariNama <<" ====\n\n";
+    for(int i = 0;i < daftarPesanan.size();i++){
+        if(cariNama == daftarPesanan[i].namaPemesan){
+                adaPesanan = true;
+                int subtotal = daftarPesanan[i].jumlah * daftarPesanan[i].harga;
+                cout << left << setw(3) << "- " 
+                    << setw(25) << daftarPesanan[i].namaMenu << " " 
+                    << setw(3) << daftarPesanan[i].jumlah << " x " 
+                    << "Rp. " << setw(10) << daftarPesanan[i].harga <<
+                     " = " << "Rp. " << subtotal << endl;
+                total += subtotal;
+        }
+    }
+    if(adaPesanan == true){
+    cout << "-------------------------------------------------------" << endl;
+    cout << "\nTotal yang harus dibayar : Rp." << total << endl << endl;
+    }
+    else{
+            cout << "Maaf. Tidak ada riwayat pesanan dengan nama tersebut.\n";
+            cout << "\nTekan enter untuk selanjutnya...";
+            cin.ignore();
+            cin.get();
+    }
+
+    cout << "\n========== Meja yang dibooking ===========\n\n";
+
+    bool adaBooking = false;
+    
+    for(int i = 0;i < riwayatBooking.size();i++){
+        if(cariNama == riwayatBooking[i].nama){
+            adaBooking = true;
+                cout << "   Atas nama    : " << riwayatBooking[i].nama << endl;
+                cout << "- " << " Meja nomor : " << riwayatBooking[i].nomorMeja << endl;
+                cout << "   Jumlah orang : " << riwayatBooking[i].jumlahOrang << endl;
+                cout << "\n *Catatan     : 1 meja maksimal untuk 6 orang!" << endl;
+                cout << "-------------------------------------------------------" << endl; 
+                
+        }
+    }
+                
+    if(adaBooking == false){
+        cout << "Maaf. Tidak ada riwayat booking meja dengan nama tersebut.\n";
+    }
+    cout << "\nTekan enter untuk kembali ke menu utama...";
+    cin.get();
+}
+
+int main(){
+
+int pilihan1;
+bool ulang = true;
+
+vector<menu> daftarMenu = {
+    {"Gado-Gado Roll", 15000},
+    {"Perkedel Mini Udang", 12000},
+    {"Tahu Isi Crispy", 10000},
+    {"Lumpia Daging Rendang", 14000},
+    {"Sup Rawon Iga Sapi", 20000},
+    {"Sup Asam Pedas Padang", 18000},
+    {"Ikan Bakar Sambal Matah", 22000},
+    {"Nasi Ayam Kebuli", 25000},
+    {"Ayam Betutu", 23000},
+    {"Lontong Sayur", 13000},
+    {"Es Serai Lemon", 8000},
+    {"Teh Rosella Madu", 9000},
+    {"Kopi Tubruk Arabica Gayo", 10000},
+    {"Kopi Jos", 8000},
+    {"Wedang Jahe", 7000},
+    {"Infused Water", 9000},
+    {"Es Cendol", 8000},
+    {"Es Teler", 10000},
+    {"Bir Pletok", 12000},
+    {"Teh O", 5000}
+};
+
+
+while(ulang == true) {
+ulang = false;
+system("cls");
+cout << "\n================================= Selamat datang di Restoran =================================" << endl;
+cout << "=                                                                                            =" << endl;
+cout << "=  1. Pesan Makanan      2. Booking Meja    3. Lihat Riwayat Pesanan & Booking     4. Keluar =" << endl;
+cout << "=                                                                                            =" << endl;
+cout << "==============================================================================================" << "\n\n";
+cout << "Masukkan Pilihan : ";
+cin >> pilihan1;
+
+switch(pilihan1){
+    case 1:
+        cout << "\n";
+        pesanMakanan(daftarMenu);
+        ulang = true;
+        break;
+
+    case 2:
+        bookingMeja();
+        ulang = true;
+        break;
+
+    case 3:
+        lihatRiwayat();
+        ulang = true;
+        break;
+        return 0;
+
+    case 4:
+        cout << "Terima kasih telah berkunjung ^^" << endl;
+        ulang = false;
+        break;
+        return 0;
+
+    default:
+        cout << "Input tidak valid! Silakan coba lagi. \n";
+        ulang  = true;
+}
+
+
+}
+
+    return 0;
+}
